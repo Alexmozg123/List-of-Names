@@ -20,7 +20,7 @@
             android:id="@+id/editTextTextPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/name"
             android:inputType="textPersonName"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="16dp"
-        android:text="Save name"
+        android:text="@string/save_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
