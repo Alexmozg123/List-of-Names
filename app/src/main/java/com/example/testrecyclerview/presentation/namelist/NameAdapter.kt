@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testrecyclerview.R
 
 class NameAdapter (
-    items: List<String>,
-    private val listener: (name: String) -> Unit
+    private val items: MutableList<String>,
+    private val listener: (name: String) -> Unit,
     ) : RecyclerView.Adapter<NameAdapter.NameHolder>() {
-
-    private val listNames = items.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -21,19 +19,14 @@ class NameAdapter (
     }
 
     override fun onBindViewHolder(nameHolder: NameHolder, position: Int) {
-        nameHolder.nameTextView.text = listNames[position]
+        nameHolder.nameTextView.text = items[position]
         nameHolder.itemView.setOnClickListener {
-            listener(listNames[position])
+            listener(items[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return listNames.size
-    }
-
-    fun addItem(name: String) {
-        listNames.add(name)
-        notifyItemInserted(listNames.size - 1)
+        return items.size
     }
 
     class NameHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

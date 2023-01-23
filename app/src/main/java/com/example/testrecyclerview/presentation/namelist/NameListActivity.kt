@@ -20,13 +20,13 @@ class NameListActivity : AppCompatActivity() {
         findViewById(R.id.addItemButton)
     }
 
-    private lateinit var adapter: NameAdapter
+    private val viewModel = NameViewModel()
 
     private val getName = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             it.data?.getStringExtra(FormActivity.EXTRA_NAME)?.let { name ->
-                adapter.addItem(name)
+                viewModel.addName(name)
             }
         }
     }
@@ -35,14 +35,22 @@ class NameListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter =
-            NameAdapter(listOf("Саша", "Ника", "Наташа", "Катя", "Святик", "Сережка")) {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        recyclerView.adapter = adapter
-
         addItemButton.setOnClickListener {
             getName.launch(FormActivity.createIntent(this))
         }
+
+        viewModel.result.observe(this) {
+            when (it) {
+                is NameViewResult.ListNames -> setNameAdapter(it.listOfNames)
+            }
+        }
+    }
+
+    private fun setNameAdapter(names: MutableList<String>) {
+        val adapter =
+            NameAdapter(names) {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        recyclerView.adapter = adapter
     }
 }
