@@ -13,7 +13,7 @@ import com.example.testrecyclerview.presentation.form.FormActivity
 
 class NameListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
