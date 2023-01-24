@@ -30,6 +30,6 @@ class NameAdapter (
     }
 
     class NameHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.TitleTextView)
+        val nameTextView: TextView = itemView.findViewById(R.id.titleTextView)
     }
 }

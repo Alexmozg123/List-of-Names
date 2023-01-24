@@ -8,9 +8,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testrecyclerview.R
+import com.example.testrecyclerview.databinding.ActivityMainBinding
 import com.example.testrecyclerview.presentation.form.FormActivity
 
 class NameListActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
 
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recyclerView)
@@ -33,7 +36,8 @@ class NameListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         addItemButton.setOnClickListener {
             getName.launch(FormActivity.createIntent(this))
