@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testrecyclerview.R
 import com.example.testrecyclerview.databinding.ActivityMainBinding
 import com.example.testrecyclerview.presentation.form.FormActivity
 
@@ -16,11 +15,11 @@ class NameListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val recyclerView: RecyclerView by lazy {
-        findViewById(R.id.recyclerView)
+        binding.recyclerView
     }
 
     private val addItemButton: Button by lazy {
-        findViewById(R.id.addItemButton)
+        binding.addItemButton
     }
 
     private val viewModel = NameViewModel()
@@ -55,6 +54,7 @@ class NameListActivity : AppCompatActivity() {
             NameAdapter(names) {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
+        adapter.submitList(names)
         recyclerView.adapter = adapter
     }
 }

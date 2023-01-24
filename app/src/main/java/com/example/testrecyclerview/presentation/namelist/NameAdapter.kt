@@ -1,35 +1,41 @@
 package com.example.testrecyclerview.presentation.namelist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testrecyclerview.R
+import com.example.testrecyclerview.databinding.HolderCardBinding
 
 class NameAdapter (
     private val items: MutableList<String>,
     private val listener: (name: String) -> Unit,
-    ) : RecyclerView.Adapter<NameAdapter.NameHolder>() {
+    ) : ListAdapter<String, NameAdapter.NameHolder>(NameComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.holder_card, parent, false)
-        return NameHolder(view)
+        val binding = HolderCardBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return NameHolder(binding)
     }
 
     override fun onBindViewHolder(nameHolder: NameHolder, position: Int) {
-        nameHolder.nameTextView.text = items[position]
+        nameHolder.bind(items[position])
         nameHolder.itemView.setOnClickListener {
             listener(items[position])
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    class NameHolder(private val binding: HolderCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(name: String) = with(binding) {
+            titleTextView.text = name
+        }
     }
 
-    class NameHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.titleTextView)
+    class NameComparator : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String) =
+            oldItem == newItem
+
+        override fun areContentsTheSame(oldItem: String, newItem: String) =
+            oldItem == newItem
     }
 }
