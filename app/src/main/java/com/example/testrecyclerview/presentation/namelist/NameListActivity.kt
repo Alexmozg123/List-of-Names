@@ -6,55 +6,61 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testrecyclerview.databinding.ActivityMainBinding
+import com.example.testrecyclerview.R
+import com.example.testrecyclerview.data.database.room.NoteRoomDatabase
+import com.example.testrecyclerview.data.repository.RoomRepository
+import com.example.testrecyclerview.domain.DataBaseRepository
+import com.example.testrecyclerview.model.NoteModel
 import com.example.testrecyclerview.presentation.form.FormActivity
 
 class NameListActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val recyclerView: RecyclerView by lazy { findViewById(R.id.recyclerView) }
+    private val addItemButton: Button by lazy { findViewById(R.id.addItemButton) }
 
-    private val recyclerView: RecyclerView by lazy {
-        binding.recyclerView
-    }
-
-    private val addItemButton: Button by lazy {
-        binding.addItemButton
-    }
-
-    private val viewModel = NameViewModel()
+    private lateinit var viewModel: NameViewModel
 
     private val getName = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) {
+        ActivityResultContracts.StartActivityForResult()
+    ) {
         if (it.resultCode == Activity.RESULT_OK) {
-            it.data?.getStringExtra(FormActivity.EXTRA_NAME)?.let { name ->
-                viewModel.addName(name)
+            it.data?.getSerializableExtra(FormActivity.NOTE_ARRAY)?.let { note ->
+                viewModel.addNote(note as NoteModel)
             }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
         addItemButton.setOnClickListener {
             getName.launch(FormActivity.createIntent(this))
         }
 
-        viewModel.result.observe(this) {
-            when (it) {
-                is NameViewResult.ListNames -> setNameAdapter(it.listOfNames)
-            }
+        viewModel = ViewModelProvider(
+            this,
+            NameViewModel.NoteFactory(createRepository())
+        )[NameViewModel::class.java]
+
+        viewModel.getAllNotes().observe(this) { result ->
+            setNameAdapter(result)
         }
     }
 
-    private fun setNameAdapter(names: MutableList<String>) {
+    private fun createRepository(): DataBaseRepository {
+        val dataBase = NoteRoomDatabase.getInstance(this)
+        return RoomRepository(dataBase.getNoteDao())
+    }
+
+    private fun setNameAdapter(notes: List<NoteModel>) {
         val adapter =
-            NameAdapter(names) {
+            NameAdapter(notes) {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
-        adapter.submitList(names)
+        adapter.submitList(notes)
         recyclerView.adapter = adapter
     }
 }
