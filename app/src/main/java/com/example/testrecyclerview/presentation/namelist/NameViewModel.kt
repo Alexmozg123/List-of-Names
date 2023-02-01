@@ -1,24 +1,31 @@
 package com.example.testrecyclerview.presentation.namelist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.util.LinkedList
+import androidx.lifecycle.ViewModelProvider
+import com.example.testrecyclerview.domain.DataBaseRepository
+import com.example.testrecyclerview.model.NoteModel
+import java.util.concurrent.Executors
 
-class NameViewModel : ViewModel() {
+class NameViewModel(
+    private val repository: DataBaseRepository,
+) : ViewModel() {
 
-    private val _result = MutableLiveData<NameViewResult>()
-    val result: LiveData<NameViewResult>
-        get() = _result
+    private val executor = Executors.newSingleThreadExecutor()
 
-    private var names: MutableList<String> = LinkedList<String>()
-
-    fun addName(name: String) {
-        names.add(name)
-        updateNamesList()
+    fun addNote(note: NoteModel) {
+        executor.submit { repository.create(note) }
     }
 
-    private fun updateNamesList() {
-        _result.value = NameViewResult.ListNames(names)
+    fun getAllNotes(): LiveData<List<NoteModel>> {
+        return repository.readAll()
+    }
+
+    class NoteFactory(
+        private val repository: DataBaseRepository,
+    ) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+            NameViewModel(repository) as T
     }
 }
