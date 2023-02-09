@@ -16,18 +16,9 @@ class NameAdapter(
 ) : ListAdapter<NoteModel, NameAdapter.NameHolder>(NameComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
-        val view: View
-        val inflater = LayoutInflater.from(parent.context)
-        view = if (viewType == VT_1) {
-            inflater.inflate(R.layout.holder_card, parent, false)
-        } else {
-            inflater.inflate(R.layout.holder_card2, parent, false)
-        }
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.holder_card, parent, false)
         return NameHolder(view)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if ((items[position].id ?: 0) % 2 == 1) VT_1 else VT_2
     }
 
     override fun onBindViewHolder(nameHolder: NameHolder, position: Int) {
@@ -38,16 +29,14 @@ class NameAdapter(
     }
 
     class NameHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvTitle: TextView by lazy {
-            itemView.findViewById(R.id.tvTitle)
-        }
-        private val tvId: TextView by lazy {
-            itemView.findViewById(R.id.tvId)
-        }
+        private val tvTitle: TextView by lazy { itemView.findViewById(R.id.tvTitle) }
+        private val tvId: TextView by lazy { itemView.findViewById(R.id.tvId) }
+        private val tvDescription: TextView by lazy { itemView.findViewById(R.id.tvDescription) }
 
         fun bind(item: NoteModel) {
             tvTitle.text = item.title
             tvId.text = item.id.toString()
+            tvDescription.text = item.description
         }
     }
 
@@ -57,10 +46,5 @@ class NameAdapter(
 
         override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel) =
             oldItem == newItem
-    }
-
-    companion object {
-        private const val VT_1 = 1
-        private const val VT_2 = 2
     }
 }
