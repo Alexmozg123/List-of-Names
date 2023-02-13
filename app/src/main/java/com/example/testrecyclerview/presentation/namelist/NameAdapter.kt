@@ -3,6 +3,7 @@ package com.example.testrecyclerview.presentation.namelist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +13,7 @@ import com.example.testrecyclerview.model.NoteModel
 
 class NameAdapter(
     private val items: List<NoteModel>,
-    private val listener: (name: String) -> Unit,
+    private val deleteListener: (note: NoteModel) -> Unit,
 ) : ListAdapter<NoteModel, NameAdapter.NameHolder>(NameComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
@@ -22,21 +23,20 @@ class NameAdapter(
     }
 
     override fun onBindViewHolder(nameHolder: NameHolder, position: Int) {
-        nameHolder.bind(items[position])
-        nameHolder.itemView.setOnClickListener {
-            listener(items[position].title)
-        }
+        nameHolder.bind(items[position], deleteListener)
     }
 
     class NameHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvTitle: TextView by lazy { itemView.findViewById(R.id.tvTitle) }
-        private val tvId: TextView by lazy { itemView.findViewById(R.id.tvId) }
         private val tvDescription: TextView by lazy { itemView.findViewById(R.id.tvDescription) }
+        private val ivDelete: ImageView by lazy { itemView.findViewById(R.id.ivTrash) }
 
-        fun bind(item: NoteModel) {
+        fun bind(item: NoteModel, deleteListener: (note: NoteModel) -> Unit) {
             tvTitle.text = item.title
-            tvId.text = item.id.toString()
             tvDescription.text = item.description
+            ivDelete.setOnClickListener {
+                deleteListener(item)
+            }
         }
     }
 

@@ -17,6 +17,10 @@ class NameViewModel(
         executor.submit { repository.create(note) }
     }
 
+    fun deleteNote(note: NoteModel) {
+        executor.submit { repository.delete(note) }
+    }
+
     fun getAllNotes(): LiveData<List<NoteModel>> {
         return repository.readAll()
     }

@@ -3,7 +3,6 @@ package com.example.testrecyclerview.presentation.namelist
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -58,7 +57,7 @@ class NameListActivity : AppCompatActivity() {
     private fun setNameAdapter(notes: List<NoteModel>) {
         val adapter =
             NameAdapter(notes) {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                viewModel.deleteNote(it)
             }
         adapter.submitList(notes)
         recyclerView.adapter = adapter
