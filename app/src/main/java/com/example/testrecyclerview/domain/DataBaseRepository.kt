@@ -1,15 +1,15 @@
 package com.example.testrecyclerview.domain
 
 import androidx.lifecycle.LiveData
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 
 interface DataBaseRepository {
 
-    fun readAll(): LiveData<List<NoteModel>>
+    fun readAll(): LiveData<List<Instrument>>
 
-    fun create(noteModel: NoteModel)
+    fun create(noteModel: Instrument)
 
-    fun update(noteModel: NoteModel)
+    fun update(noteModel: Instrument)
 
-    fun delete(noteModel: NoteModel)
+    fun delete(noteModel: Instrument)
 }

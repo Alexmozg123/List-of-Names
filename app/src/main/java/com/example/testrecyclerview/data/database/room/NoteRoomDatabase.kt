@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import com.example.testrecyclerview.data.database.room.dao.NoteDao
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 
-@Database(entities = [NoteModel::class], version = 1)
+@Database(entities = [Instrument::class], version = 1)
 abstract class NoteRoomDatabase : androidx.room.RoomDatabase() {
 
     abstract fun getNoteDao(): NoteDao

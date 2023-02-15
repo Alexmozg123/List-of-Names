@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testrecyclerview.R
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 
 class NameAdapter(
-    private val items: List<NoteModel>,
-    private val deleteListener: (note: NoteModel) -> Unit,
-) : ListAdapter<NoteModel, NameAdapter.NameHolder>(NameComparator()) {
+    private val items: List<Instrument>,
+    private val deleteListener: (note: Instrument) -> Unit,
+) : ListAdapter<Instrument, NameAdapter.NameHolder>(NameComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val view = LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ class NameAdapter(
         private val tvDescription: TextView by lazy { itemView.findViewById(R.id.tvDescription) }
         private val ivDelete: ImageView by lazy { itemView.findViewById(R.id.ivTrash) }
 
-        fun bind(item: NoteModel, deleteListener: (note: NoteModel) -> Unit) {
+        fun bind(item: Instrument, deleteListener: (note: Instrument) -> Unit) {
             tvTitle.text = item.title
             tvDescription.text = item.description
             ivDelete.setOnClickListener {
@@ -40,11 +40,11 @@ class NameAdapter(
         }
     }
 
-    class NameComparator : DiffUtil.ItemCallback<NoteModel>() {
-        override fun areItemsTheSame(oldItem: NoteModel, newItem: NoteModel) =
+    class NameComparator : DiffUtil.ItemCallback<Instrument>() {
+        override fun areItemsTheSame(oldItem: Instrument, newItem: Instrument) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel) =
+        override fun areContentsTheSame(oldItem: Instrument, newItem: Instrument) =
             oldItem == newItem
     }
 }

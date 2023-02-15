@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testrecyclerview.R
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 
 class FormActivity : AppCompatActivity() {
 
@@ -28,7 +28,7 @@ class FormActivity : AppCompatActivity() {
         val title = title.text.toString()
         val description = description.text.toString()
         setResult(RESULT_OK, Intent()
-            .putExtra(NOTE_ARRAY, NoteModel(title = title, description = description)))
+            .putExtra(NOTE_ARRAY, Instrument(title = title, description = description)))
         finish()
     }
 

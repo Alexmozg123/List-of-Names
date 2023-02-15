@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TestRecyclerView</string>
     <string name="AddItemButton">Add item</string>
-    <string name="name">Name</string>
-    <string name="save_name">Save name</string>
+    <string name="instrument">Instrument</string>
+    <string name="save_instrument">Save instrument</string>
     <string name="description">Description</string>
     <string name="deleteItem">Удалить</string>
 </resources>

@@ -11,7 +11,7 @@ import com.example.testrecyclerview.R
 import com.example.testrecyclerview.data.database.room.NoteRoomDatabase
 import com.example.testrecyclerview.data.repository.RoomRepository
 import com.example.testrecyclerview.domain.DataBaseRepository
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 import com.example.testrecyclerview.presentation.form.FormActivity
 
 class NameListActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class NameListActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == Activity.RESULT_OK) {
             it.data?.getSerializableExtra(FormActivity.NOTE_ARRAY)?.let { note ->
-                viewModel.addNote(note as NoteModel)
+                viewModel.addNote(note as Instrument)
             }
         }
     }
@@ -54,7 +54,7 @@ class NameListActivity : AppCompatActivity() {
         return RoomRepository(dataBase.getNoteDao())
     }
 
-    private fun setNameAdapter(notes: List<NoteModel>) {
+    private fun setNameAdapter(notes: List<Instrument>) {
         val adapter =
             NameAdapter(notes) {
                 viewModel.deleteNote(it)

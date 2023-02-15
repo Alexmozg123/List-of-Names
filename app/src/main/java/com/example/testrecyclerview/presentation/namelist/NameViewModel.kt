@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testrecyclerview.domain.DataBaseRepository
-import com.example.testrecyclerview.model.NoteModel
+import com.example.testrecyclerview.model.Instrument
 import java.util.concurrent.Executors
 
 class NameViewModel(
@@ -13,15 +13,15 @@ class NameViewModel(
 
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun addNote(note: NoteModel) {
+    fun addNote(note: Instrument) {
         executor.submit { repository.create(note) }
     }
 
-    fun deleteNote(note: NoteModel) {
+    fun deleteNote(note: Instrument) {
         executor.submit { repository.delete(note) }
     }
 
-    fun getAllNotes(): LiveData<List<NoteModel>> {
+    fun getAllNotes(): LiveData<List<Instrument>> {
         return repository.readAll()
     }
 
