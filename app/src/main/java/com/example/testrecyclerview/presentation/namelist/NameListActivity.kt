@@ -2,6 +2,7 @@ package com.example.testrecyclerview.presentation.namelist
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,10 @@ class NameListActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == Activity.RESULT_OK) {
             it.data?.getSerializableExtra(FormActivity.NOTE_ARRAY)?.let { note ->
-                viewModel.addNote(note as Instrument)
+                note as Instrument
+                if (note.title == "" && note.description == "") {
+                    Log.e("EMPTY_DATA", "You didn't put any data")
+                } else { viewModel.addNote(note) }
             }
         }
     }
