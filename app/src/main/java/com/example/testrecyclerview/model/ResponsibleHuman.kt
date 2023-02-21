@@ -3,19 +3,17 @@ package com.example.testrecyclerview.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
-@Entity(tableName = "musician_table")
-data class Musician(
+@Entity(tableName = "responsible_human_table")
+data class ResponsibleHuman(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    val responsibleHumanId: Int,
 
     @ColumnInfo
     val name: String,
 
-    @ColumnInfo
+    @ColumnInfo(name = "last_name")
     val lastName: String,
-
-    @ColumnInfo
-    val musicianId: Int,
-)
+) : Serializable

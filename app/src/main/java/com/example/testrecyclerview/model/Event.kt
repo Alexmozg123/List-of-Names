@@ -5,15 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "instrument_table")
-data class Instrument(
+@Entity(tableName = "event_table")
+data class Event(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
+    val eventId: Int,
 
     @ColumnInfo
-    var title: String,
-
-    @ColumnInfo
-    var description: String,
+    val eventName: String,
 ) : Serializable

@@ -1,10 +1,10 @@
-package com.example.testrecyclerview.presentation.namelist
+package com.example.testrecyclerview.presentation.worshipeventlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testrecyclerview.domain.DataBaseRepository
-import com.example.testrecyclerview.model.Instrument
+import com.example.testrecyclerview.model.Event
 import java.util.concurrent.Executors
 
 class NameViewModel(
@@ -13,17 +13,17 @@ class NameViewModel(
 
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun addNote(note: Instrument) {
-        executor.submit { repository.create(note) }
-    }
-
-    fun deleteNote(note: Instrument) {
-        executor.submit { repository.delete(note) }
-    }
-
-    fun getAllNotes(): LiveData<List<Instrument>> {
-        return repository.readAll()
-    }
+//    fun addNote(note: Event) {
+//        executor.submit { repository.create(note) }
+//    }
+//
+//    fun deleteNote(note: Event) {
+//        executor.submit { repository.delete(note) }
+//    }
+//
+//    fun getAllNotes(): LiveData<List<Event>> {
+//        return repository.readAll()
+//    }
 
     class NoteFactory(
         private val repository: DataBaseRepository,

@@ -1,15 +1,20 @@
 package com.example.testrecyclerview.domain
 
-import androidx.lifecycle.LiveData
-import com.example.testrecyclerview.model.Instrument
+import com.example.testrecyclerview.model.Event
+import com.example.testrecyclerview.model.ResponsibleHuman
 
 interface DataBaseRepository {
 
-    fun readAll(): LiveData<List<Instrument>>
+    fun createResponsibleHuman(responsibleHuman: ResponsibleHuman)
 
-    fun create(noteModel: Instrument)
+    fun deleteResponsibleHuman(responsibleHuman: ResponsibleHuman)
 
-    fun update(noteModel: Instrument)
+    fun updateResponsibleHuman(responsibleHuman: ResponsibleHuman)
 
-    fun delete(noteModel: Instrument)
+    fun createEvent(event: Event)
+
+    fun deleteEvent(event: Event)
+
+    fun updateEvent(event: Event)
+
 }

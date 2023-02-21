@@ -1,24 +1,38 @@
 package com.example.testrecyclerview.data.repository
 
-import androidx.lifecycle.LiveData
+import com.example.testrecyclerview.data.database.room.dao.EventDao
+import com.example.testrecyclerview.data.database.room.dao.ResponsibleHumanDao
 import com.example.testrecyclerview.domain.DataBaseRepository
-import com.example.testrecyclerview.data.database.room.dao.NoteDao
-import com.example.testrecyclerview.model.Instrument
+import com.example.testrecyclerview.model.Event
+import com.example.testrecyclerview.model.ResponsibleHuman
 
-class RoomRepository(private val noteDao: NoteDao) : DataBaseRepository {
+class RoomRepository(
+    private val responsibleHumanDao: ResponsibleHumanDao,
+    private val eventDao: EventDao,
+) : DataBaseRepository {
 
-    override fun readAll(): LiveData<List<Instrument>> =
-        noteDao.readAllNotes()
-
-    override fun create(noteModel: Instrument) {
-        noteDao.insertNote(noteModel)
+    override fun createEvent(event: Event) {
+        eventDao.insertEvent(event)
     }
 
-    override fun update(noteModel: Instrument) {
-        noteDao.updateNote(noteModel)
+    override fun createResponsibleHuman(responsibleHuman: ResponsibleHuman) {
+        responsibleHumanDao.insertResponsibleHuman(responsibleHuman)
     }
 
-    override fun delete(noteModel: Instrument) {
-        noteDao.deleteNote(noteModel)
+    override fun deleteEvent(event: Event) {
+        eventDao.deleteEvent(event)
     }
+
+    override fun updateEvent(event: Event) {
+        eventDao.updateEvent(event)
+    }
+
+    override fun deleteResponsibleHuman(responsibleHuman: ResponsibleHuman) {
+        responsibleHumanDao.deleteResponsibleHuman(responsibleHuman)
+    }
+
+    override fun updateResponsibleHuman(responsibleHuman: ResponsibleHuman) {
+        responsibleHumanDao.updateResponsibleHuman(responsibleHuman)
+    }
+
 }

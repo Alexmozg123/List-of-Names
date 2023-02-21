@@ -5,4 +5,6 @@
     <string name="save_instrument">Save instrument</string>
     <string name="description">Description</string>
     <string name="deleteItem">Удалить</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
