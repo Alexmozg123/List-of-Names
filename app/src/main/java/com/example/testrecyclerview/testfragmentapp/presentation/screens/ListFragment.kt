@@ -1,36 +1,34 @@
 package com.example.testrecyclerview.testfragmentapp.presentation.screens
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.example.testrecyclerview.R
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-
-        val listFragText: TextView by lazy { view.findViewById(R.id.tvFragList) }
-        listFragText.text = "Tы на ListFragment"
-
-        val gotoListButton: Button by lazy { view.findViewById(R.id.btFragList) }
-        gotoListButton.setOnClickListener {
-            parentFragmentManager.commit {
-                replace<FormFragment>(R.id.fragment_container_view)
-            }
-        }
-
-        return view
+        setupMenu()
     }
 
+    private fun setupMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu_list_fragment, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.icCreate) {
+                    Toast.makeText(requireContext(), "jcbsbcsbjc", Toast.LENGTH_SHORT).show()
+                    return true
+                }
+                return false
+            }
+        }, viewLifecycleOwner)
+    }
 }

@@ -1,35 +1,19 @@
 package com.example.testrecyclerview.testfragmentapp.presentation.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.fragment.app.Fragment
 import com.example.testrecyclerview.R
 
-class FormFragment : Fragment() {
+class FormFragment : Fragment(R.layout.fragment_form) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val view = inflater.inflate(R.layout.fragment_form, container, false)
-
-        val formFragText: TextView by lazy { view.findViewById(R.id.tvFragForm) }
-        formFragText.text = "Tы на FormFragment"
-
-        val gotoListButton: Button by lazy { view.findViewById(R.id.btFragForm) }
-        gotoListButton.setOnClickListener {
-            parentFragmentManager.commit {
-                replace<ListFragment>(R.id.fragment_container_view)
-            }
+        view.findViewById<TextView>(R.id.tvTestFormFrag)?.let {
+            it.text = "Start this"
         }
-
-        return view
     }
+
 }
